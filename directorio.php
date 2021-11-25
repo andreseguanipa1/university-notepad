@@ -1,5 +1,48 @@
 <?php
-    $dir = $_GET['dir'];
+    if(isset($_GET['dir'])){
+        $dir = $_GET['dir'];
+        $message = "";
+
+        if(isset($_POST['crear-nota'])){
+            if($_POST['crear-nota'] == 'create'){
+                if(isset($_POST['nombre-nota']) && isset($_POST['valor-nota-1']) && isset($_POST['directorio'])){
+    
+                    $message = '';
+                    $name = $_POST['nombre-nota'];
+                    $directorio = $_POST['directorio'];
+                    $content = $_POST['valor-nota-1'];
+    
+                    $my_dir = "archivos/$directorio/$name.txt";
+
+                    if(file_exists($my_dir)){
+                        $message = "Ya existe un archivo con el nombre nombre <b>$name</b>";
+
+                    } else{
+                        $archivo = fopen($my_dir,'a');
+                        fputs($archivo, $content);
+                        fclose($archivo);
+    
+                        header("Location: index.php");
+                    }
+
+                } else {
+                    $message = '';
+                }
+            } else {
+                $message = '';
+            }
+        } else {
+            $message = '';
+        }
+    
+        unset($_POST['crear-nota']);
+        unset($_POST['nombre']);
+
+    }    
+    else{
+        header("Location: index.php");
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -22,9 +65,25 @@
 
     <div class="container">
 
-        <p><b>Directorios > <?php echo $dir ?></b></p>
+    <p><b><a href="index.php">Directorios</a> > <?php echo $dir ?></a></b></p>
         <hr>
-        <br>
+        <p>
+        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            Crear nota
+        </button>
+        </p>
+        <div class="collapse" id="collapseExample">
+            <form action="directorio.php?dir=<?php echo $dir ?>" method="post">
+                <p><input type="text" name="nombre-nota" placeholder="Nombre" styles="padding: 2px 4px 2px 4px"> .txt</p>
+                <textarea name="valor-nota-1" class="valor-nota-1" id="" cols="30" placeholder="Contenido" rows="10"></textarea>
+                <br>
+                <input type="hidden" name="directorio" value="<?php echo $dir ?>">
+                <button type="submit" name="crear-nota" value="create" styles="margin-left: 20px;">Crear</button>
+            </form> 
+            <br>               
+        </div>
+
+        <p><?php echo $message ?></p>
 
         <div class="row">
 

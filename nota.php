@@ -35,7 +35,7 @@
 
     <div class="container">
 
-        <p><b>Directorios > <?php echo $dir ?> > <?php echo $note ?></b></p>
+        <p><b><a href="index.php">Directorios</a> > <a href="directorio.php?dir=<?php echo $dir ?>"><?php echo $dir ?></a> > <?php echo $note ?></b></p>
             <hr>
             <br>
 
@@ -43,7 +43,7 @@
 
                 <p style='text-align:center'>Toca para editar</p>
 
-                <textarea name="valor-nota" id="" cols="30" rows="10"><?php echo $contents; ?></textarea>
+                <textarea name="valor-nota" class="valor-nota" id="" cols="30" rows="10"><?php echo $contents; ?></textarea>
                 <input type="hidden" name="directorio" value="<?php echo $dir; ?>">
                 <input type="hidden" name="nota" value="<?php echo $note; ?>">
 
