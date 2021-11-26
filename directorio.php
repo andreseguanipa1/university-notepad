@@ -13,7 +13,7 @@
                     $directorio = $_POST['directorio'];
                     $content = $_POST['valor-nota-1'];
     
-                    $my_dir = "archivos/$directorio/$name.html";
+                    $my_dir = "archivos/$directorio/$name.txt";
 
                     try{
 
