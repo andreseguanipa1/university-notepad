@@ -1,4 +1,0 @@
-- Auditoria
-- Inteligencia Artificial
-- Programacion Web
-- Seminario de Investigacion I
