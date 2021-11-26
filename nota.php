@@ -1,6 +1,14 @@
 <?php
-    $dir = $_GET['dir'];
-    $note = $_GET['note']
+
+    if(isset($_GET['dir']) && isset($_GET['note'])){
+        $dir = $_GET['dir'];
+        $note = $_GET['note'];
+
+    }else {
+        header("Location: index.php");
+
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -19,17 +27,22 @@
 
         include_once('partials/navbar.php');
 
-        $file = "archivos\\" . $dir . '\\' . $note;
-        $gestor = fopen($file, "r");
-        $size = filesize($file);
-        if($size > 0){
-            $contents = fread($gestor, filesize($file));
-        } else {
-            $contents = '';
+        try{
+
+            $file = "archivos\\" . $dir . '\\' . $note;
+            $gestor = fopen($file, "r");
+            $size = filesize($file);
+            if($size > 0){
+                $contents = fread($gestor, filesize($file));
+            } else {
+                $contents = '';
+            }
+            fclose($gestor);
+
+        } catch (Exception $e){
+            echo 'Excepción capturada: ',  $e->getMessage(), "\n\n";
+            $contents = "";
         }
-        fclose($gestor);
-
-
 
     ?>
 

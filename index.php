@@ -1,37 +1,44 @@
 <?php
-    $resp = ''; 
 
-    if(isset($_POST['crear'])){
-        if($_POST['crear'] == 'create'){
-            if(isset($_POST['nombre'])){
+        $resp = ''; 
 
-                $name = $_POST['nombre'];
-                $message = '';
+        if(isset($_POST['crear'])){
+            if($_POST['crear'] == 'create'){
+                if(isset($_POST['nombre'])){
+    
+                    $name = $_POST['nombre'];
+                    $message = '';
+    
+                    $my_dir = "archivos/$name";
 
-                $my_dir = "archivos/$name";
+                    try{
+    
+                        if(!is_dir($my_dir)) {
+        
+                            mkdir($my_dir);
+        
+                        } else {
+        
+                            $my_dir = substr($my_dir, 9);
+                            $message = "El directorio <b>$my_dir</b> ya existe!";
+                        }
 
-                if(!is_dir($my_dir)) {
-
-                    mkdir($my_dir);
-
+                    } catch (Exception $e){
+                        echo 'Excepción capturada: ',  $e->getMessage(), "\n\n";
+                    }
+    
                 } else {
-
-                    $my_dir = substr($my_dir, 9);
-                    $message = "El directorio <b>$my_dir</b> ya existe!";
+                    $message = '';
                 }
-
             } else {
                 $message = '';
             }
         } else {
             $message = '';
         }
-    } else {
-        $message = '';
-    }
-
-    unset($_POST['crear']);
-    unset($_POST['nombre']);
+    
+        unset($_POST['crear']);
+        unset($_POST['nombre']);
 
 ?>
 
@@ -77,12 +84,13 @@
         <div class="row">
 
             <?php 
+                try{
 
-                $directorio = 'archivos';
-                $ficheros1  = scandir($directorio);
+                    $directorio = 'archivos';
+                    $ficheros1  = scandir($directorio);
 
-                foreach($ficheros1 as $valor){
-                    if ('.' !== $valor && '..' !== $valor){
+                    foreach($ficheros1 as $valor){
+                        if ('.' !== $valor && '..' !== $valor){
 
             ?>
 
@@ -91,12 +99,17 @@
                         <div class="card-body">
                             <h5 class="card-title"><?php echo $valor ?></h5>
                             <a href="directorio.php?dir=<?php echo $valor ?>" class="card-link">Ver</a>
+                            <a href="process/delete.php?dir=<?php echo $valor ?>&delete=2" class="card-link">Eliminar</a>
                         </div>
                     </div>
                 </div>
 
             <?php
+                        }
                     }
+
+                } catch (Exception $e){
+                    echo 'Excepción capturada: ',  $e->getMessage(), "\n\n";
                 }
             ?>
 

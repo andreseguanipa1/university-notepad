@@ -1,4 +1,5 @@
 <?php
+
     if(isset($_GET['dir'])){
         $dir = $_GET['dir'];
         $message = "";
@@ -14,15 +15,21 @@
     
                     $my_dir = "archivos/$directorio/$name.txt";
 
-                    if(file_exists($my_dir)){
-                        $message = "Ya existe un archivo con el nombre nombre <b>$name</b>";
+                    try{
 
-                    } else{
-                        $archivo = fopen($my_dir,'a');
-                        fputs($archivo, $content);
-                        fclose($archivo);
-    
-                        header("Location: index.php");
+                        if(file_exists($my_dir)){
+                            $message = "Ya existe un archivo con el nombre nombre <b>$name</b>";
+
+                        } else{
+                            $archivo = fopen($my_dir,'a');
+                            fputs($archivo, $content);
+                            fclose($archivo);
+        
+                            header('Location: directorio.php?dir=' . $dir);
+                        }
+
+                    } catch (Exception $e){
+                        echo 'Excepción capturada: ',  $e->getMessage(), "\n\n";
                     }
 
                 } else {
@@ -42,6 +49,7 @@
     else{
         header("Location: index.php");
     }
+
 
 ?>
 
@@ -111,7 +119,7 @@
                                                 <h6 class="card-subtitle mb-2 text-muted"><?php echo filesize($file) ?> bytes</h6>
                                                 <p class="card-text"><i><?php echo substr($contents, 0, 60); ?>...</i></p>
                                                 <a href="nota.php?note=<?php echo $valor ?>&dir=<?php echo $dir ?>" class="card-link">Ver o editar</a>
-                                                <a href="#" class="card-link">Eliminar</a>
+                                                <a href="process/delete.php?note=<?php echo $valor ?>&dir=<?php echo $dir ?>&delete=1" class="card-link">Eliminar</a>
                                             </div>
                                         </div>
                                     </div>
@@ -131,7 +139,7 @@
                                                 <h6 class="card-subtitle mb-2 text-muted"><?php echo filesize($file) ?> bytes</h6>
                                                 <p class="card-text"><b>Sin nada escrito...</b></p>
                                                 <a href="nota.php?note=<?php echo $valor ?>&dir=<?php echo $dir ?>" class="card-link">Ver o editar</a>
-                                                <a href="#" class="card-link">Eliminar</a>
+                                                <a href="process/delete.php?note=<?php echo $valor ?>&dir=<?php echo $dir ?>&delete=1" class="card-link">Eliminar</a>
                                             </div>
                                         </div>
                                     </div>
