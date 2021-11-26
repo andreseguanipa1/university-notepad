@@ -18,7 +18,7 @@ if(isset($_POST['save'])){
                 fwrite($gestor, $content);
                 fclose($gestor);
 
-                header('Location: ../directorio.php?dir=' . $dir);
+                header('Location: ../index.php');
 
             }catch (Exception $e){
                 echo 'Excepción capturada: ',  $e->getMessage(), "\n\n";
