@@ -30,14 +30,12 @@
         try{
 
             $file = "archivos\\" . $dir . '\\' . $note;
-            $gestor = fopen($file, "r");
             $size = filesize($file);
             if($size > 0){
-                $contents = fread($gestor, filesize($file));
+                $contents = file_get_contents($file, FILE_USE_INCLUDE_PATH);
             } else {
                 $contents = '';
             }
-            fclose($gestor);
 
         } catch (Exception $e){
             echo 'Excepción capturada: ',  $e->getMessage(), "\n\n";
@@ -48,7 +46,7 @@
 
     <div class="container">
 
-        <p><b><a href="index.php">Directorios</a> > <a href="directorio.php?dir=<?php echo $dir ?>"><?php echo $dir ?></a> > <?php echo $note ?></b></p>
+        <p><b><a href="index.php">Directorios</a> > <a href="directorio.php?dir=<?php echo $dir ?>"><?php echo $dir ?></a> > <?php echo substr($note ,0 , (strlen($note) - 5)); ?></b></p>
             <hr>
             <br>
 

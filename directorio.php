@@ -13,7 +13,7 @@
                     $directorio = $_POST['directorio'];
                     $content = $_POST['valor-nota-1'];
     
-                    $my_dir = "archivos/$directorio/$name.txt";
+                    $my_dir = "archivos/$directorio/$name.html";
 
                     try{
 
@@ -114,7 +114,7 @@
                                     <div class="col">
                                         <div class="card" style="width: 18rem;">
                                             <div class="card-body">
-                                                <h5 class="card-title"><?php echo $valor ?></h5>
+                                                <h5 class="card-title"><?php echo substr($valor ,0 , (strlen($valor) - 5)); ?></h5>
                                                 <h6 class="card-subtitle mb-2 text-muted"><?php echo filesize($file) ?> bytes</h6>
                                                 <p class="card-text"><i><?php echo substr($contents, 0, 60); ?>...</i></p>
                                                 <a href="nota.php?note=<?php echo $valor ?>&dir=<?php echo $dir ?>" class="card-link">Ver o editar</a>
