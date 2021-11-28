@@ -105,10 +105,9 @@
                         if ('.' !== $valor && '..' !== $valor){
 
                             $file = "archivos\\" . $dir . '\\' . $valor;
-                            $gestor = fopen($file, "r");
 
                             if(filesize($file) > 0){
-                                $contents = fread($gestor, filesize($file));
+                                $contents = file_get_contents($file, FILE_USE_INCLUDE_PATH);
 
                                 ?>
 
@@ -126,7 +125,6 @@
 
                                 <?php
 
-                                fclose($gestor);
 
                             } else{
 
@@ -145,8 +143,6 @@
                                     </div>
 
                                 <?php
-
-                                fclose($gestor);
 
                             }
                         }
